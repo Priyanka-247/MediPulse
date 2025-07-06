@@ -2,19 +2,20 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/components/layout/navbar"
-import Footer from "@/components/layout/footer"
+import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/contexts/auth-context"
 import { CartProvider } from "@/contexts/cart-context"
+import { WishlistProvider } from "@/contexts/wishlist-context"
 import { Toaster } from "@/components/ui/toaster"
+import Navbar from "@/components/layout/navbar"
+import Footer from "@/components/layout/footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "MediPulse - 15-Minute Lifeline | Online Medicine Delivery",
+  title: "MediPulse - 15 Minute Medicine Delivery",
   description:
-    "Order medicines online with hyperlocal delivery in under 15 minutes. Your trusted medical partner right when you need it most.",
-  keywords: "medicine delivery, online pharmacy, prescription upload, healthcare, emergency medicine",
+    "Get medicines delivered to your doorstep in just 15 minutes. Upload prescription, order online, and track your delivery in real-time.",
     generator: 'v0.dev'
 }
 
@@ -24,18 +25,22 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>
-          <CartProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-            <Toaster />
-          </CartProvider>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <div className="min-h-screen flex flex-col">
+                  <Navbar />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+                <Toaster />
+              </WishlistProvider>
+            </CartProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

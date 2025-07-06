@@ -6,6 +6,7 @@ import { Star, ShoppingCart, Heart, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/contexts/cart-context"
+import { useWishlist } from "@/contexts/wishlist-context"
 import { useToast } from "@/hooks/use-toast"
 
 interface Medicine {
@@ -28,9 +29,12 @@ interface MedicineCardProps {
 }
 
 export default function MedicineCard({ medicine }: MedicineCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false)
   const { addToCart } = useCart()
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
   const { toast } = useToast()
+  const [imageError, setImageError] = useState(false)
+
+  const isWishlisted = isInWishlist(medicine.id)
 
   const handleAddToCart = () => {
     if (!medicine.inStock) return
@@ -51,11 +55,19 @@ export default function MedicineCard({ medicine }: MedicineCardProps) {
   }
 
   const handleWishlist = () => {
-    setIsWishlisted(!isWishlisted)
-    toast({
-      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist",
-      description: `${medicine.name} ${isWishlisted ? "removed from" : "added to"} your wishlist.`,
-    })
+    if (isWishlisted) {
+      removeFromWishlist(medicine.id)
+      toast({
+        title: "Removed from wishlist",
+        description: `${medicine.name} removed from your wishlist.`,
+      })
+    } else {
+      addToWishlist(medicine)
+      toast({
+        title: "Added to wishlist",
+        description: `${medicine.name} added to your wishlist.`,
+      })
+    }
   }
 
   const discountPercentage = Math.round(((medicine.originalPrice - medicine.price) / medicine.originalPrice) * 100)
@@ -64,11 +76,12 @@ export default function MedicineCard({ medicine }: MedicineCardProps) {
     <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-300">
       <div className="relative">
         <Image
-          src={medicine.image || "/placeholder.svg"}
+          src={imageError ? "/placeholder.svg?height=200&width=300&text=Medicine" : medicine.image}
           alt={medicine.name}
           width={300}
           height={200}
           className="w-full h-48 object-cover rounded-t-lg"
+          onError={() => setImageError(true)}
         />
 
         {/* Discount Badge */}
@@ -79,7 +92,7 @@ export default function MedicineCard({ medicine }: MedicineCardProps) {
         {/* Wishlist Button */}
         <button
           onClick={handleWishlist}
-          className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
+          className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors"
         >
           <Heart className={`h-4 w-4 ${isWishlisted ? "text-red-500 fill-current" : "text-gray-400"}`} />
         </button>
