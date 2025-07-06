@@ -91,14 +91,14 @@ export default function HeroSection() {
           {/* Right Content - Hero Image */}
           <div className="relative">
             <div className="relative z-10">
-              <Image
-                src="/placeholder.svg?height=600&width=500&text=Medicine+Delivery"
-                alt="Medicine delivery illustration"
-                width={500}
-                height={600}
+              <img
+                src="/images/medicine-delivery-boy.png"
+                alt="Medicine delivery boy on scooter"
+                width={512}
+                height={512}
                 className="w-full h-auto rounded-2xl shadow-2xl"
-                priority
               />
+
             </div>
 
             {/* Floating Cards */}

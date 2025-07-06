@@ -7,28 +7,28 @@ const testimonials = [
     location: "Mumbai, India",
     rating: 5,
     text: "MediPulse saved my day when my daughter had a fever at midnight. Got the medicines delivered in just 12 minutes!",
-    avatar: "/placeholder.svg?height=80&width=80&text=PS",
+    avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?height=80&width=80&text=PS",
   },
   {
     name: "Rajesh Kumar",
     location: "Delhi, India",
     rating: 5,
     text: "The prescription upload feature is amazing. The pharmacist verified everything and delivered exactly what I needed.",
-    avatar: "/placeholder.svg?height=80&width=80&text=RK",
+    avatar: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?height=80&width=80&text=RK",
   },
   {
     name: "Dr. Anjali Patel",
     location: "Bangalore, India",
     rating: 5,
     text: "As a doctor, I appreciate their attention to prescription validation and medicine quality. Highly recommended!",
-    avatar: "/placeholder.svg?height=80&width=80&text=AP",
+    avatar: "https://images.pexels.com/photos/2050994/pexels-photo-2050994.jpeg?height=80&width=80&text=AP",
   },
   {
     name: "Amit Singh",
     location: "Pune, India",
     rating: 5,
     text: "The live tracking feature is incredible. I could see exactly where my delivery was and when it would arrive.",
-    avatar: "/placeholder.svg?height=80&width=80&text=AS",
+    avatar: "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?height=80&width=80&text=AP",
   },
 ]
 
